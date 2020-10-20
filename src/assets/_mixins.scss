@@ -1,0 +1,16 @@
+@mixin inside-padding() {
+    padding: 1rem 3rem;
+    box-sizing: border-box;
+}
+
+@mixin default-border() {
+    border: $default-border;
+    border-radius: .4rem;
+}
+
+@mixin centered-flex($direction: 'row') {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: $direction;
+}

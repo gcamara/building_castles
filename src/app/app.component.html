@@ -1,0 +1,51 @@
+<header>
+  <div class="aequilibrium">
+    <img src="../assets/aeq-horizontal@1x.svg" alt="aequilibrium logo">
+  </div>
+</header>
+<div class="explanation"></div>
+<div class="content">
+  <div class="logo"></div>
+  <div class="spacer-20"></div>
+  <form (submit)="build()">
+    <div class="elements">
+      <label for="elements"></label>
+      <input id="elements" type="text" [formControl]="land"
+        placeholder="Describe the stretch of the land (e.g.: 1,3,3,2,5,6)" [ngClass]="{ 'has-error': land.errors }"
+        (keypress)="numbersAndCommaOnly($event)">
+    </div>
+    <div class="error" *ngIf="land.invalid">
+      <div class="spacer-20"></div>
+      <span *ngIf="land.hasError('empty')">What? Where are we? I can't see any lands!</span>
+      <span *ngIf="land.hasError('wrong-input')">Ouch! It seems our land is broken somewhere</span>
+    </div>
+    <div class="spacer-20"></div>
+    <button type="submit" *ngIf="firstCastles">Build My Castles!</button>
+    <button *ngIf="!firstCastles" (click)="reset()">I want a different land!</button>
+  </form>
+  <div class="spacer-20"></div>
+  <div class="result" *ngIf="castles?.length">
+    <div>
+      You have <strong>{{ peaks }} peak(s)</strong>, <strong>{{ valleys }} valley(s)</strong> and you can build <strong>{{ castles.length }} castle(s)</strong>!
+      <div class="spacer-10"></div>
+      <div class="rocks">
+        Your land rocks!
+      </div>
+    </div>
+  </div>
+  <div class="spacer-30"></div>
+  <div #terrain id="terrain" [ngClass]="{ 'show': finished }">
+    <div *ngFor="let castle of castles; let i = index" [ngClass]="terrainClass(i)">
+      <span class="castle"></span>
+    </div>
+  </div>
+  <div class="subtitles" *ngIf="finished">
+    <div class="dash gray">
+      Peaks or Valleys from user input
+    </div>
+    <div class="spacer-20"></div>
+    <div class="dash indigo">
+      Start and ending castles
+    </div>
+  </div>
+</div>

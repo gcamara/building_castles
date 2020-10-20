@@ -1,0 +1,217 @@
+@import "../assets/colors";
+@import "../assets/tokens";
+@import "../assets/mixins";
+
+:host {
+    max-width: 144rem;
+    flex-grow: 1;
+    height: 100%;
+    box-sizing: border-box;
+    @include centered-flex(column);
+}
+
+header {
+    width: 100%;
+    padding: 1rem 0;
+    box-sizing: border-box;
+}
+
+.content {
+    width: 60rem;
+    flex-grow: 1;
+    @include centered-flex(column);
+}
+
+.logo {
+    background-image: url("../assets/building.svg");
+    background-repeat: no-repeat;
+    height: 16rem;
+    width: 16rem;
+}
+
+form {
+    width: 100%;
+    @include centered-flex(column);
+}
+
+.elements {
+    width: 100%;
+
+    input[type="text"] {
+        width: 100%;
+        font-size: 1.4rem;
+        transition: all 0.25s ease-in-out;
+        @include default-border();
+        @include inside-padding();
+
+        &.has-error {
+            border: 0.2rem indianred solid;
+        }
+    }
+}
+
+@for $i from 1 to 6 {
+    .spacer-#{$i * 10} {
+        width: #{$i}rem;
+        height: #{$i}rem;
+    }
+}
+
+.console {
+    min-height: 30rem;
+    max-height: 30rem;
+    width: 100%;
+    overflow-y: auto;
+    display: flex;
+    align-items: flex-end;
+    @include default-border();
+}
+
+button {
+    background-color: $castle-orange;
+    color: white;
+    border-radius: 0.2rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: all 0.15s ease-in-out;
+
+    @include inside-padding();
+
+    &:hover {
+        background-color: darken($castle-orange, 10);
+    }
+}
+
+.error {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: indianred;
+    text-align: left;
+}
+
+div#terrain {
+    width: 100%;
+    max-width: 60rem;
+    min-height: 40rem;
+    overflow: auto;
+    padding: 8rem 2rem;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    transition: 0.15s ease-in-out;
+
+    &.show {
+        .castle {
+            animation: pop 0.15s cubic-bezier(0, 0, 0.8, 1.4) forwards;
+        }
+    }
+
+    @keyframes pop {
+        to {
+            transform: scale(1);
+        }
+    }
+
+    .castle {
+        background-image: url("../assets/castle.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 3rem;
+        height: 4rem;
+        transform: scale(0);
+        margin: auto;
+    }
+
+    .peak,
+    .valley {
+        position: relative;
+        width: 8rem;
+        min-height: 8rem;
+        max-height: 10rem;
+        border: 0.1rem #cecece solid;
+        &:first-child,
+        &:last-child {
+            border-color: indigo;
+            border-width: 0.2rem;
+        }
+    }
+
+    .peak {
+        border-top-right-radius: 25rem;
+        border-top-left-radius: 25rem;
+        border-bottom: none;
+
+        .castle {
+            top: -4rem;
+        }
+    }
+
+    .valley {
+        margin-top: 5rem;
+        border-bottom-right-radius: 25rem;
+        border-bottom-left-radius: 25rem;
+        border-top: none;
+
+        .castle {
+            bottom: 0;
+        }
+    }
+}
+
+.result {
+    text-align: center;
+    font-size: 1.6rem;
+    color: #222;
+    padding: 2rem;
+    box-sizing: border-box;
+    background-color: #f6f6f6;
+    border-radius: 0.3rem;
+
+    h2 {
+        font-size: 2.8rem;
+        margin: 0.5rem;
+    }
+
+    .rocks {
+        font-size: 2.6rem;
+        font-weight: 100;
+        color: indianred;
+        text-transform: uppercase;
+    }
+}
+
+.subtitles {
+    display: flex;
+    font-size: 1.4rem;
+
+    .dash {
+        display: flex;
+        align-items: center;
+        color: #888787;
+
+        &.indigo {
+            &:before {
+                background-color: indigo;
+            }
+        }
+
+        &.gray {
+            &:before {
+                background-color: #cecece;
+            }
+        }
+
+        &:before {
+            content: "";
+            margin-right: 1rem;
+            height: 0.2rem;
+            width: 2rem;
+            display: block;
+        }
+    }
+}
